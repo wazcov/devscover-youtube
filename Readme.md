@@ -27,5 +27,5 @@ sudo -H pip3 install --upgrade --ignore-installed pip3 setuptools
 ## References:
 
 - Luma Library is from: https://github.com/rm-hull/luma.led_matrix
-- LED Matrix can be bought:
-- Raspberry Pi can be bought: 
+- LED Matrix can be bought: https://www.amazon.co.uk/gp/product/B07HJDV3HN/ref=as_li_tl?ie=UTF8&camp=1634&creative=6738&creativeASIN=B07HJDV3HN&linkCode=as2&tag=wazcov09-21&linkId=2a992c027263ab01846234f35c788b69
+- Raspberry Pi can be bought: https://www.amazon.co.uk/gp/product/B07BDR5PDW/ref=as_li_tl?ie=UTF8&camp=1634&creative=6738&creativeASIN=B07BDR5PDW&linkCode=as2&tag=wazcov09-21&linkId=33f13995d4f62d45611ef803268b7268
