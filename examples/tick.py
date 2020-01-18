@@ -24,12 +24,12 @@ def demo():
 
     # Start The Display
     print(msg_to_show)
-    while(True):
-        show_message(device, msg_to_show, fill="white", font=proportional(CP437_FONT))
-        time.sleep(1)
+    show_message(device, msg_to_show, fill="white", font=proportional(CP437_FONT))
+    time.sleep(1)
 
 if __name__ == "__main__":
     try:
-        demo()
+        while(True):
+            demo()
     except KeyboardInterrupt:
         pass
