@@ -14,7 +14,7 @@ def demo():
     msg = "Devscover Subscribers: "
 
     try:
-        url = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UC7jBsNZf-wRyJkEmDKBrg2A&key=AIzaSyBM34pgtcsM7Mx0DXojsSKCi4-7OC2KBhY"
+        url = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UC7jBsNZf-wRyJkEmDKBrg2A&key=XXXX"
         res = urllib.request.urlopen(url)
         data = json.load(res)
         subs = data['items'][0]['statistics']['subscriberCount']
