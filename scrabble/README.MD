@@ -14,6 +14,19 @@ pip3 install opencv-python==3.4.6.27
 https://raspberrypi.stackexchange.com/questions/89231/tesseract-ocr-4-x-beta-for-raspberry-pi
 libleptonica-dev
 
+$ git clone --depth 1  https://github.com/tesseract-ocr/tesseract.git 
+$ cd tesseract-ocr/
+$ ./autogen.sh
+$ ./configure
+$ make
+$ sudo make install
+$ sudo ldconfig
+$ tesseract -v
+
+download https://github.com/tesseract-ocr/tessdata/blob/master/eng.traineddata
+
+export TESSDATA_PREFIX=/home/pi/tesseract/tessdata
+
 Then run this Python:
 * python3 ocr.py
 * python3 scrabbleWordFinder.py
