@@ -2,13 +2,12 @@
 
 from PIL import Image
 from PIL import ImageFilter
-import cv2
-import pytesseract
+import pytesseract #image parsing
 from picamera import PiCamera
 from time import sleep
-import twl
+import twl #scrabble dictionary
+import PySimpleGUI as sg #UI
 
-TEST_LETTER_ARRAY = ['x', 'z', 'p', 't', 'p', 'l', 'i']
 WORDS = set(twl.iterator())
 LETTER_SCORES = {"a": 1, "b": 3, "c": 3, "d": 2,
                  "e": 1, "f": 4, "g": 2, "h": 4,
@@ -17,6 +16,16 @@ LETTER_SCORES = {"a": 1, "b": 3, "c": 3, "d": 2,
                  "q": 10, "r": 1, "s": 1, "t": 1,
                  "u": 1, "v": 4, "w": 4, "x": 8,
                  "y": 4, "z": 10}
+starting_text = "X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0"
+
+# UI
+sg.theme('LightGrey1')
+layout = [  [sg.Text('XXXXX', justification='center', key='letters', font=("Helvetica", 40))],
+            [sg.Text('Top Word Scores:', justification='center', font=("Helvetica", 35))],
+            [sg.Multiline(starting_text, size=(40, 20), key='words', font=("Helvetica", 15))],
+            [sg.Button('Close', size=(8, 4))]
+          ]
+window = sg.Window('Scrabble Word Finder', layout, size=(820, 480), resizable=True)
 
 def take_picture():
     loc = '/home/pi/scrabble/tiles.jpg'
@@ -37,7 +46,7 @@ def parse_picture(loc):
     print("Parsing Image...")
     img = Image.open (loc).convert('L')
 
-    blackwhite = img.point(lambda x: 0 if x < 66 else 255, '1')
+    blackwhite = img.point(lambda x: 0 if x < 166 else 255, '1')
     blackwhite.save("tiles_bw.jpg")
 
     im = Image.open("tiles_bw.jpg")
@@ -52,12 +61,12 @@ def get_current_letters():
     print("Letters Are: " + letters)
     letter_list = [x for x in letters]
     print(letter_list)
+    if len(letter_list) < 1:
+        return ['a', 'b', 'c', 'd']
     return letter_list
-    #return TEST_LETTER_ARRAY
 
 
 def get_scrabble_words():
-    # return ['apple', 'lemon', 'ape', 'at', 'cheese', 'eggs', 'cow']
     print("Getting Scrabble Dictionary...")
     return WORDS
 
@@ -93,15 +102,28 @@ def get_top_scoring_words(valid_words):
 def start_scrabble():
     print("Loading Scrabble Word Finder...")
     scrabble_words = get_scrabble_words()  # scrabble dictionary
-    while(True):
-        current_tile_letters = get_current_letters()  # my tiles
 
+    while(True):
+        event, values = window.read(timeout=100)
+
+        current_tile_letters = get_current_letters()  # my tiles
         valid_words = check_valid_words(current_tile_letters, scrabble_words)
         top_word_scores = get_top_scoring_words(valid_words)
 
+
+        letter_String = " ".join(str(x) for x in current_tile_letters)
+        print(letter_String)
+        window['letters'].update(letter_String)
+
         print("Top Word Scores:\n")
         print("\n".join("{}: {}".format(k, v) for k, v in top_word_scores.items()))
+        window['words'].update("\n".join("{}: {}".format(k, v) for k, v in top_word_scores.items()))
+        window.refresh()
 
+        if event == sg.WIN_CLOSED or event == 'Close':	# if user closes window or clicks cancel
+            break
+
+    window.close()
 
 if __name__ == '__main__':
     start_scrabble()
