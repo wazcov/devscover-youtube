@@ -17,6 +17,7 @@ LETTER_SCORES = {"a": 1, "b": 3, "c": 3, "d": 2,
                  "u": 1, "v": 4, "w": 4, "x": 8,
                  "y": 4, "z": 10}
 starting_text = "X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0 \n X : 0"
+TEST = True
 
 # UI
 sg.theme('LightGrey1')
@@ -60,9 +61,12 @@ def get_current_letters():
     letters = parse_picture(loc).lower()
     print("Letters Are: " + letters)
     letter_list = [x for x in letters]
+    letter_list = list(filter(None, letter_list))
     print(letter_list)
     if len(letter_list) < 1:
         return ['a', 'b', 'c', 'd']
+    elif TEST == True:
+        return ['n', 'h', 'e', 'o', 't', 'p', 'y']
     return letter_list
 
 
