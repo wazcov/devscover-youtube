@@ -18,6 +18,9 @@ This repository contains the various tutorials written for either [Devscover.com
         framebuffer_width=1024
         framebuffer_height=614
       ```
+3) Flip an attached official touchscreen around
+    - `sudo nano /boot/config.txt`
+    - add `lcd_rotate=2`
 
 ## Tutorials
 ### https://youtube.com/c/devscover
