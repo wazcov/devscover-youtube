@@ -9,20 +9,23 @@ def parseSite(site):
 
 	name = soup.body.h1.get_text().strip()
 	description = soup.find("div", class_="sb-teaser").get_text().strip()
+	description = description.replace(',', '.')
 	teamsize = soup.find("i", class_="icon-team").next_sibling.split(" Employees")[0].strip()
 	image = soup.find("span", class_="company-logo").find("div").find("img")['src'].strip()
 	website = soup.find("label", text="Official Website:").find_next('a')['href'].strip()
 	founded = soup.find("i", class_="icon-calendar").next_sibling.strip()
 	sectors = soup.find("label", text="Sector:").next_sibling.strip()
+	sectors = sectors.replace(',', '.')
 	stage = soup.find("label", text="Company Stage:").next_sibling.strip()
+	stage = stage.replace(',', '.')
 	model = soup.find("label", text="Business Model:").next_sibling.strip()
+	model = model.replace(',', '.')
 
 	location = soup.find("i", class_="icon-location").parent.parent.findNext('a').get_text().split(", ")
 	city = location[0].strip()
 	country = location[1].strip()
 
-	print(f"{image}, {name}, {sectors}, {stage}, {website}, {description[0: 40]}, {model}, {city}, {teamsize}, {country}, {founded}, {description} ")
-	print("\n")
+	print(f"{image}, {image}, {name}, {sectors}, {stage}, {website}, {description[0: 40]}, {model}, {city}, {teamsize}, {country}, {founded}, {description} ")
 
 def main(argv):
 	# define the program description
@@ -36,7 +39,7 @@ def main(argv):
 	args = parser.parse_args()
 
 	# Create Headings
-	print(f"Background image, Brand Name, Startup Sectors, Startup Stage, Website, High-Concept Pitch, Buisness Model, City, Company Size, Country, Founded, Description ")
+	print(f"Background image, Background image2, Brand Name, Startup Sectors, Startup Stage, Website, High-Concept Pitch, Buisness Model, City, Company Size, Country, Founded, Description ")
 	print("\n")
 
 	file = args.file
