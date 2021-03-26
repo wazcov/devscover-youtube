@@ -12,7 +12,12 @@ source ~/.bashrc  # Rerun profile after installing nvm
 nvm install 8  # Installs Node v8, (nvm install stable) installs Latest version of node
 nvm use 8  # Sets Node to use v8`````
 ```
+##Edit Makefile
+`crontab -e`
 
+then add
+
+`* * * * * make -f /home/pi/webcam/Makefile -C /home/pi/webcam &>/home/pi/webcam/log.log`
 ## Install dependencies
 `npm install`
 
